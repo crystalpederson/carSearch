@@ -1,1 +1,1 @@
-# carShair-takehome
+# Crystal Pederson - Frontend Take-home Assessment
