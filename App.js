@@ -8,21 +8,41 @@ const { BORDER_COLOR } = colors;
 
 import CarContainer from './components/CarContainer';
 import SearchBar from './components/SearchBar';
+import FilterBar from './components/FilterBar';
 
 export default function App() {
   const [cars, setCars] = useState([]);
   const [make, setMake] = useState('Honda');
+  const [type, setType] = useState('')
+  const [year, setYear] = useState('')
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     getCars();
   }, [make])
 
+  
+  const carMakeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`
+  const makeAndTypeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/vehicleType/${type}?format=json`
+  const makeAndYearUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${year}?format=json`
+  const allUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${year}/vehicleType/${type}?format=json`
+  let url;
+
+  if(make && type && year){
+    url = allUrl
+  }else if(make && type){
+    url = makeAndTypeUrl
+  }else if(make && year){
+    url = makeAndYearUrl
+  }else{
+    url = carMakeUrl
+  }
+  
   async function getCars() {
     setCars(null)
     setErrorMessage(null)
     try {
-      const response = await axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`);
+      const response = await axios.get(url);
       const carsArray = response.data.Results;
       setCars(carsArray)
     } catch (error) {
@@ -39,7 +59,7 @@ export default function App() {
           <Text>Search for a car!</Text>
           <Text>{cars.length} results: </Text>
           <SearchBar setMake={setMake} getCars={getCars}/>
-          <Text>You searched for: {make}</Text>
+          <FilterBar make={make} type={type}/>
           <CarContainer cars={cars}/>
         </SafeAreaView>
       </View>        

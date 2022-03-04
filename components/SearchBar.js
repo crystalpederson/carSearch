@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput} from 'react-native'
 import { colors } from '../utils/index'
 
@@ -11,7 +11,7 @@ const SearchBar = ({ setMake }) => {
             <TextInput 
                 style={styles.input}
                 autoCapitalize='words'
-                placeholder='Porsche'
+                placeholder='Car make'
                 onSubmitEditing={(value) => {setMake(value.nativeEvent.text)}}
             />
         </View>
