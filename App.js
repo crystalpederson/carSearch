@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     getCars();
-  }, [make])
+  }, [make, type])
 
   
   const carMakeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`
@@ -59,7 +59,7 @@ export default function App() {
           <Text>Search for a car!</Text>
           <Text>{cars.length} results: </Text>
           <SearchBar setMake={setMake} getCars={getCars}/>
-          <FilterBar make={make} type={type}/>
+          <FilterBar make={make} type={type} setType={setType}/>
           <CarContainer cars={cars}/>
         </SafeAreaView>
       </View>        

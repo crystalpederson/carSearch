@@ -6,12 +6,12 @@ import TypePicker from './TypePicker';
 
 const { BORDER_COLOR } = colors; 
 
-const FilterBar = ({ make, type }) => {
+const FilterBar = ({ make, type, setType }) => {
     
     return(
         <View style={styles.container} >
             <Text style={styles.filterItem}>{make}</Text>
-            <TypePicker type={type}/>
+            <TypePicker type={type} setType={setType}/>
             <Text style={styles.filterItem}>Year</Text>
         </View>
     )
