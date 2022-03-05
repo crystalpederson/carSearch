@@ -22,8 +22,9 @@ const CarContainer = ({ cars }) => {
 
 const styles = StyleSheet.create({
     carsList: {
-        margin: 10,
-    }
+        margin: 20,
+        flex: 1
+    },
   });
   
 

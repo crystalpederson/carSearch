@@ -3,10 +3,11 @@ import { View, Text, StyleSheet } from 'react-native'
 import { colors } from '../utils/index'
 
 import TypePicker from './TypePicker';
+import YearSlider from './YearSlider'
 
 const { BORDER_COLOR } = colors; 
 
-const FilterBar = ({ make, type, setType }) => {
+const FilterBar = ({ make, type, setType, year, setYear }) => {
     
     return(
         <View style={styles.container} >

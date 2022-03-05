@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR } = colors; 
 
 const Car = ({ car }) => {
     const { Make_Name, Model_Name} = car;

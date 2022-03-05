@@ -36,7 +36,7 @@ export default function App() {
     setCars(null)
     setErrorMessage(null)
     if(year.length && type){
-      console.log('all selected')
+      console.log(`Query make=${make}, years=${year}, type=${type}`)
       let carsArray = []
       for(let i = 0; i < year.length; i++){
         const currYear = year[i]
@@ -52,7 +52,7 @@ export default function App() {
       }
     }
     else if(year.length){
-      console.log('year selected')
+      console.log(`Query make=${make}, years=${year}, type=any`)
       console.log(year)
       let carsArray = []
       for(let i = 0; i < year.length; i++){
@@ -70,7 +70,7 @@ export default function App() {
     }
     else{
       try {
-        console.log('only make selected')
+        console.log(`Query make=${make}, years=any, type=any`)
         const response = await axios.get(url);
         const carsArray = response.data.Results;
         setCars(carsArray)
@@ -86,12 +86,12 @@ export default function App() {
     return(
       <View style={styles.listContainer}>
         <StatusBar style="auto" />
-        <SafeAreaView>
+        <SafeAreaView style={styles.safe}>
           <Text>Search for a car!</Text>
           <Text>{cars.length} results: </Text>
           <SearchBar setMake={setMake} getCars={getCars}/>
-          <FilterBar make={make} type={type} setType={setType}/>
-          {/* <YearSlider setYear={setYear}/> */}
+          <FilterBar make={make} type={type} setType={setType} year={year} setYear={setYear}/>
+          <YearSlider year={year} setYear={setYear}/>
           <CarContainer cars={cars}/>
         </SafeAreaView>
       </View>        
@@ -129,5 +129,9 @@ const styles = StyleSheet.create({
   },
   carsList: {
     margin: 10,
+  },
+  safe:{
+    width: '100%',
+    flex: 1
   }
 });

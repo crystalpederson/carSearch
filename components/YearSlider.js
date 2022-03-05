@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import RangeSlider from 'rn-range-slider';
 
 import Thumb from './slider/Thumb';
@@ -10,23 +10,23 @@ import Notch from './slider/Notch';
 
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR } = colors; 
 
-const YearSlider = ( { setYear }) => {
+const YearSlider = ( { year, setYear }) => {
 
-    const [min, setMin] = useState(2010);
-    const [max, setMax] = useState(2022);
-    const [yearRange, setYearRange] = useState([])
+    const firstYear = year[0] || 2010;
+    const lastYear = year[year.length - 1] || 2022
+
+    const [min, setMin] = useState(firstYear);
+    const [max, setMax] = useState(lastYear);
 
     const changeYearRange = (low, high) => {
         let yearArray = []
         for(let i = low; i <= high; i++){
             yearArray.push(i)
         }
-        console.log(yearArray)
-        setMin(low)
-        setMax(high)
-        setYearRange(yearArray)
+        console.log(`Year changed to ${yearArray}`)
+        setYear(yearArray)
     }
     
     const renderThumb = useCallback(() => <Thumb/>, []);
@@ -35,7 +35,8 @@ const YearSlider = ( { setYear }) => {
     const renderLabel = useCallback(value => <Label text={value}/>, []);
     const renderNotch = useCallback(() => <Notch/>, []);
     const handleValueChange = useCallback((low, high) => {
-      changeYearRange(low, high)
+        setMin(low)
+        setMax(high)
     }, []);
 
     return(
@@ -44,21 +45,20 @@ const YearSlider = ( { setYear }) => {
             style={styles.slider}
             min={2010}
             max={2022}
+            low={min}
+            high={max}
             step={1}
-            floatingLabel
+            floatingLabel={false}
             renderThumb={renderThumb}
             renderRail={renderRail}
             renderRailSelected={renderRailSelected}
             renderLabel={renderLabel}
             renderNotch={renderNotch}
             onValueChanged={handleValueChange}
+            onTouchEnd={changeYearRange}
             />
             <Text>{min}</Text>
             <Text>{max}</Text>
-            <Button
-              title='Confirm'
-              onPress={()=>{setYear(yearRange)}}
-            />
         </View>
     )
 }
@@ -67,7 +67,6 @@ export default YearSlider;
 
 const styles = StyleSheet.create({
     slider: {
-
     }
 })
 
