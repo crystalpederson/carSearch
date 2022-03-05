@@ -9,17 +9,18 @@ const { BORDER_COLOR, PRIMARY_COLOR } = colors;
 import CarContainer from './components/CarContainer';
 import SearchBar from './components/SearchBar';
 import FilterBar from './components/FilterBar';
+import YearSlider from './components/YearSlider';
 
 export default function App() {
   const [cars, setCars] = useState([]);
   const [make, setMake] = useState('Honda');
   const [type, setType] = useState('')
-  const [year, setYear] = useState([2020])
+  const [year, setYear] = useState([])
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    getCars();
-  }, [make, type])
+    getCars()
+  }, [make, type, year])
 
   const carMakeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`
   const makeAndTypeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/vehicleType/${type}?format=json`
@@ -35,6 +36,7 @@ export default function App() {
     setCars(null)
     setErrorMessage(null)
     if(year.length && type){
+      console.log('all selected')
       let carsArray = []
       for(let i = 0; i < year.length; i++){
         const currYear = year[i]
@@ -50,6 +52,8 @@ export default function App() {
       }
     }
     else if(year.length){
+      console.log('year selected')
+      console.log(year)
       let carsArray = []
       for(let i = 0; i < year.length; i++){
         const currYear = year[i]
@@ -66,6 +70,7 @@ export default function App() {
     }
     else{
       try {
+        console.log('only make selected')
         const response = await axios.get(url);
         const carsArray = response.data.Results;
         setCars(carsArray)
@@ -86,6 +91,7 @@ export default function App() {
           <Text>{cars.length} results: </Text>
           <SearchBar setMake={setMake} getCars={getCars}/>
           <FilterBar make={make} type={type} setType={setType}/>
+          {/* <YearSlider setYear={setYear}/> */}
           <CarContainer cars={cars}/>
         </SafeAreaView>
       </View>        
