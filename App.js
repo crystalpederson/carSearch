@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { colors } from './utils/index'
 
-const { BORDER_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR } = colors; 
 
 import CarContainer from './components/CarContainer';
 import SearchBar from './components/SearchBar';
@@ -14,46 +14,72 @@ export default function App() {
   const [cars, setCars] = useState([]);
   const [make, setMake] = useState('Honda');
   const [type, setType] = useState('')
-  const [year, setYear] = useState('')
+  const [year, setYear] = useState([2020])
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     getCars();
   }, [make, type])
 
-  
   const carMakeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`
   const makeAndTypeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/vehicleType/${type}?format=json`
-  const makeAndYearUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${year}?format=json`
-  const allUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${year}/vehicleType/${type}?format=json`
   let url;
 
-  if(make && type && year){
-    url = allUrl
-  }else if(make && type){
+  if(type){
     url = makeAndTypeUrl
-  }else if(make && year){
-    url = makeAndYearUrl
   }else{
     url = carMakeUrl
   }
-  
+
   async function getCars() {
     setCars(null)
     setErrorMessage(null)
-    try {
-      const response = await axios.get(url);
-      const carsArray = response.data.Results;
-      setCars(carsArray)
-    } catch (error) {
-      console.error(error);
-      setErrorMessage('No cars found')
+    if(year.length && type){
+      let carsArray = []
+      for(let i = 0; i < year.length; i++){
+        const currYear = year[i]
+        url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${currYear}/vehicleType/${type}?format=json`
+        try {
+          const response = await axios.get(url);
+          carsArray = carsArray.concat(response.data.Results);
+          setCars(carsArray)
+        } catch (error) {
+          console.error(error);
+          setErrorMessage('No cars found')
+        }
+      }
     }
+    else if(year.length){
+      let carsArray = []
+      for(let i = 0; i < year.length; i++){
+        const currYear = year[i]
+        url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${currYear}?format=json`
+        try {
+          const response = await axios.get(url);
+          carsArray = carsArray.concat(response.data.Results);
+          setCars(carsArray)
+        } catch (error) {
+          console.error(error);
+          setErrorMessage('No cars found')
+        }
+      }
+    }
+    else{
+      try {
+        const response = await axios.get(url);
+        const carsArray = response.data.Results;
+        setCars(carsArray)
+      } catch (error) {
+        console.error(error);
+        setErrorMessage('No cars found')
+      }
+    }
+
   }
 
   if(cars){
     return(
-      <View style={styles.container}>
+      <View style={styles.listContainer}>
         <StatusBar style="auto" />
         <SafeAreaView>
           <Text>Search for a car!</Text>
@@ -76,7 +102,7 @@ export default function App() {
   else{
     return(
       <View style={styles.container}>
-      <ActivityIndicator size='large'/>
+        <ActivityIndicator size='large' color={PRIMARY_COLOR}/>
       <StatusBar style="auto" />
    </View>
     )
@@ -89,6 +115,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  listContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   carsList: {
     margin: 10,

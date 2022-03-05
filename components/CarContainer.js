@@ -14,7 +14,7 @@ const CarContainer = ({ cars }) => {
           <FlatList
             data={cars}
             renderItem={renderItem}
-            keyExtractor={car => car.Model_Name}
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
     )

@@ -32,15 +32,13 @@ const TypePicker = ({type, setType}) => {
         style={styles.dropdown}
         selectedTextStyle={styles.selectedTextStyle}
         placeholderStyle={styles.placeholderStyle}
-        // containerStyle={styles.containerStyle} for dropdown list
-        iconStyle={styles.iconStyle}
+        containerStyle={styles.containerStyle}
         maxHeight={160}
         value={type}
         data={car_types}
         valueField="value"
         labelField="lable"
         placeholder="Vehicle Type"
-        searchPlaceholder="Search..."
         onChange={e => {
           setType(e.value);
         }}
@@ -72,28 +70,7 @@ const styles = StyleSheet.create({
       width: 20,
       height: 20,
     },
-    // containerStyle: {
-        
-    // },
+    containerStyle: {
+      marginLeft: 0
+    },
   });
-// const TypePicker = ({ type }) => {
-    
-//     return(
-//         <View style={styles.filterItem}>
-//             <Text style={styles.text}>{type ? type : 'Vehicle Type'}</Text>
-//         </View>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     filterItem: {
-//         borderWidth: 1,
-//         borderColor: BORDER_COLOR,
-//         margin: 5
-//     },
-//     text: {
-//         textTransform: 'capitalize'
-//     }
-// });
-  
-
