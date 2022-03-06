@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { colors } from '../utils/index'
 
-const { PRIMARY_COLOR } = colors; 
+const { PRIMARY_COLOR, WHITE, SECONDARY_COLOR } = colors; 
 
 import CarContainer from './CarContainer';
 import FilterBar from './FilterBar';
@@ -99,14 +99,12 @@ export default function SearchResults({initialMake}) {
     return(
       <View style={styles.listContainer}>
         <StatusBar style="auto" />
-        <SafeAreaView style={styles.safe}>
           <Search make={make} setMake={setMake}/>
           <FilterBar year={year} make={make} type={type} setType={setType} setIsVisible={setIsVisible}/>
           <CarContainer cars={cars}/>
           <BottomSheet isVisible={isVisible}>
             <YearSlider year={year} setYear={setYear} setIsVisible={setIsVisible}/>
           </BottomSheet>
-        </SafeAreaView>
       </View>        
     )
   }
@@ -138,13 +136,6 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  carsList: {
-    margin: 10,
-  },
-  safe:{
-    width: '100%',
-    flex: 1
+    justifyContent: 'flex-start', 
   },
 });

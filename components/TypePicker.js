@@ -29,7 +29,7 @@ const TypePicker = ({type, setType}) => {
     return(
         <View>
       <SelectCountry
-        style={styles.dropdown}
+        style={[styles.dropdown, styles.shadow]}
         selectedTextStyle={styles.selectedTextStyle}
         placeholderStyle={styles.placeholderStyle}
         containerStyle={styles.containerStyle}
@@ -76,5 +76,14 @@ const styles = StyleSheet.create({
     },
     text:{
       color: PRIMARY_COLOR
-    }
+    },
+    shadow: {
+      shadowColor: '#000',
+      shadowOffset: {
+      width: 2,
+      height: 2,
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 2
+  },
   });

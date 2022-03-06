@@ -17,7 +17,7 @@ const FilterBar = ({ year, type, setType, setIsVisible }) => {
         <View style={styles.container} >
             <TypePicker type={type} setType={setType}/>
             <Button
-                buttonStyle={styles.button} 
+                buttonStyle={[styles.button, styles.shadow]} 
                 title={buttonText}
                 onPress={() => setIsVisible(true)}
                 titleStyle={styles.text}
@@ -46,7 +46,16 @@ const styles = StyleSheet.create({
     text:{
       color: PRIMARY_COLOR,
       fontSize: 16
-    }
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {
+        width: 2,
+        height: 2,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 2
+    },
 });
   
 

@@ -42,7 +42,7 @@ const YearSlider = ( { year, setYear, setIsVisible }) => {
 
     return(
         <View style={styles.container}>
-            <Text>Select model year:</Text>
+            <Text style={styles.title}>Model Years:</Text>
             <RangeSlider
             style={styles.slider}
             min={2010}
@@ -59,20 +59,25 @@ const YearSlider = ( { year, setYear, setIsVisible }) => {
             onValueChanged={handleValueChange}
             onTouchEnd={changeYearRange}
             />
-            <Text>{min}</Text>
-            <Text>{max}</Text>
-            <Button 
-              onPress={() => setYear([])} 
-              buttonStyle={styles.button} 
-              title='Clear' 
-              titleStyle={styles.buttonText}
-            />
-            <Button 
-              onPress={() => setIsVisible(false)} 
-              buttonStyle={styles.button} 
-              title='Done' 
-              titleStyle={styles.buttonText}
-            />
+            <View style={styles.sliderText}>
+              <Text>{min}</Text>
+              <Text>{max}</Text>              
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button 
+                onPress={() => {setYear([]); setIsVisible(false);}} 
+                buttonStyle={[styles.clearButton, styles.shadow]} 
+                title='Clear' 
+                titleStyle={styles.clearButtonText}
+              />
+              <Button 
+                onPress={() => setIsVisible(false)} 
+                buttonStyle={[styles.doneButton, styles.shadow]} 
+                title='Done' 
+                titleStyle={styles.doneButtonText}
+              />
+            </View>
+
         </View>
     )
 }
@@ -81,21 +86,61 @@ export default YearSlider;
 
 const styles = StyleSheet.create({
     container:{
+      flex: 1,
+      justifyContent: 'center',
       backgroundColor: WHITE,
       padding: 10
     },
     slider: {
     },
-    button: {
-        margin: 5,
-        height: 40,
-        width: 110,
-        backgroundColor: '#EEEEEE',
-        borderRadius: 22,
-        paddingHorizontal: 8,
+    sliderText: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      fontWeight: 'bold'
     },
-    buttonText: {
-      color: PRIMARY_COLOR
-    }
+    clearButton: {
+      margin: 5,
+      height: 40,
+      width: 140,
+      borderRadius: 22,
+      paddingHorizontal: 8,
+      borderWidth: 1,
+      borderColor: PRIMARY_COLOR,
+      backgroundColor: WHITE
+    },
+    doneButton: {
+      margin: 5,
+      height: 40,
+      width: 140,
+      borderRadius: 22,
+      paddingHorizontal: 8,
+      backgroundColor: PRIMARY_COLOR
+    },
+    clearButtonText: {
+      color: PRIMARY_COLOR,
+      fontWeight: 'bold'
+    },
+    doneButtonText: {
+      color: WHITE,
+      fontWeight: 'bold'
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: 'bold'
+    },
+    shadow: {
+      shadowColor: '#000',
+      shadowOffset: {
+      width: 2,
+      height: 2,
+      },
+      shadowOpacity: 0.3,
+      shadowRadius: 2
+  },
 })
 

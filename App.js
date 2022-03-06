@@ -35,7 +35,6 @@ function HomeScreen({ navigation }) {
 
 function ResultsScreen({ route }) {
   const { initialMake } = route.params;
-
   return (
     <View style={styles.results}>
       <SearchResults initialMake={initialMake}/>
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
   results:{ 
     flex: 1, 
     alignItems: 'center', 
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   image:{
     flex: 1,
