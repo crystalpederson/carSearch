@@ -20,7 +20,7 @@ function HomeScreen({ navigation }) {
   return (
     <View style={styles.home}>
       <ImageBackground
-        source={require('./assets/background.png')}
+        source={require('./assets/background.jpg')}
         resizeMode='cover'
         style={styles.image}
       >

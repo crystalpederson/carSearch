@@ -7,7 +7,7 @@ const { PRIMARY_COLOR, TRANSPARENT_LIGHTER, CHARCOAL } = colors;
 
 import Search from './Search';
 
-const Home = ({ make, setMake, onSubmit, navigation }) => {
+const Home = ({ make, setMake, onSubmit }) => {
 
     return(
         <View style={[styles.container, styles.shadow]}>
