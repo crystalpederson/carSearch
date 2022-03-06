@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 import { BottomSheet } from 'react-native-elements'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { colors } from '../utils/index'
 
-const { PRIMARY_COLOR, WHITE, SECONDARY_COLOR } = colors; 
+const { PRIMARY_COLOR } = colors; 
 
 import CarContainer from './CarContainer';
 import FilterBar from './FilterBar';
@@ -41,7 +41,6 @@ export default function SearchResults({initialMake}) {
   async function getCars() {
     setErrorMessage(null)
     if(year.length && type){
-      console.log(`Query make=${make}, years=${year}, type=${type}`)
       let carsArray = []
       for(let i = 0; i < year.length; i++){
         const currYear = year[i]
@@ -61,7 +60,6 @@ export default function SearchResults({initialMake}) {
       }
     }
     else if(year.length){
-      console.log(`Query make=${make}, years=${year}, type=any`)
       console.log(year)
       let carsArray = []
       for(let i = 0; i < year.length; i++){
@@ -83,7 +81,6 @@ export default function SearchResults({initialMake}) {
     }
     else{
       try {
-        console.log(`Query make=${make}, years=any, type=any`)
         const response = await axios.get(url);
         const carsArray = response.data.Results;
         if(isMounted) setCars(carsArray); 

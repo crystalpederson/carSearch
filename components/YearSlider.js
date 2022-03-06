@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import RangeSlider from 'rn-range-slider';
 import { Button } from 'react-native-elements'
@@ -26,7 +26,6 @@ const YearSlider = ( { year, setYear, setIsVisible }) => {
         for(let i = low; i <= high; i++){
             yearArray.push(i)
         }
-        console.log(`Year changed to ${yearArray}`)
         setYear(yearArray)
     }
     

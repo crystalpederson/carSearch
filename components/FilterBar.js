@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 import { colors } from '../utils/index'
 
 import TypePicker from './TypePicker';
 
-const { PRIMARY_COLOR, SECONDARY_COLOR, WHITE } = colors; 
+const { PRIMARY_COLOR, WHITE } = colors; 
 
 const FilterBar = ({ year, type, setType, setIsVisible }) => {
 

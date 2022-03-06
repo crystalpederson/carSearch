@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import { colors } from '../utils/index'
 import { Button } from 'react-native-elements'
 
-const { PRIMARY_COLOR, TRANSPARENT_LIGHTER, WHITE, CHARCOAL } = colors; 
+const { PRIMARY_COLOR, TRANSPARENT_LIGHTER, CHARCOAL } = colors; 
 
 import Search from './Search';
 
