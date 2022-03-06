@@ -9,3 +9,15 @@ For demonstration purposes, the app uses car images sourced from [Pexels](https:
 Try out the app on [Expo Snack](https://snack.expo.dev/@crystalpederson/crystal-pederson---carsearch)
 
 ![App demo gif](/assets/demo.gif)
+
+## Local Set-up
+1. Clone this repository onto your local machine.
+2. Install Expo CLI.  See Expo docs [here](https://docs.expo.dev/get-started/installation/)
+
+```javascript
+$ npm install --global expo-cli
+```
+
+3.
+
+instructions on how to run the app locally, and instructions on how to interact with the app.
