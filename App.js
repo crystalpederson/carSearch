@@ -12,12 +12,17 @@ import SearchResults from './components/SearchResults';
 function HomeScreen({ navigation }) {
   const [make, setMake] = useState('')
 
+  const onSubmit = () => {
+    navigation.navigate('Results', {initialMake: make});
+    setMake('');
+  }
+
   return (
     <View style={styles.home}>
       <Home make={make} setMake={setMake}/>
       <Button
         title="Search"
-        onPress={() => navigation.navigate('Results', {initialMake: make})}
+        onPress={onSubmit}
       />
     </View>
   );
