@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native'
+import { View, StyleSheet, FlatList, Text } from 'react-native'
 
 import Car from './Car';
 
@@ -11,6 +11,7 @@ const CarContainer = ({ cars }) => {
 
     return(
         <View style={styles.carsList}>
+          <Text>{cars.length} results found:</Text>
           <FlatList
             data={cars}
             renderItem={renderItem}
@@ -22,8 +23,9 @@ const CarContainer = ({ cars }) => {
 
 const styles = StyleSheet.create({
     carsList: {
-        margin: 20,
-        flex: 1
+      flex: 1,
+      margin: 5,
+      marginTop: 2
     },
   });
   

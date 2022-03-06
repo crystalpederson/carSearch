@@ -28,9 +28,6 @@ const FilterBar = ({ year, type, setType, setIsVisible }) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        borderColor: WHITE,
-        borderBottomColor: SECONDARY_COLOR,
         margin: 2,
         flexDirection: 'row',
         justifyContent: 'center',

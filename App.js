@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, Image, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from './utils/index';
@@ -8,6 +8,7 @@ const { PRIMARY_COLOR, SECONDARY_COLOR, WHITE } = colors;
 
 import Home from './components/HomeScreen';
 import SearchResults from './components/SearchResults';
+import Search from './components/Search';
 
 function HomeScreen({ navigation }) {
   const [make, setMake] = useState('')
@@ -19,11 +20,15 @@ function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.home}>
-      <Home make={make} setMake={setMake}/>
-      <Button
-        title="Search"
-        onPress={onSubmit}
-      />
+      <ImageBackground
+        source={require('./assets/background.png')}
+        resizeMode='cover'
+        style={styles.image}
+      >
+        <View style={styles.main}>
+          <Home make={make} setMake={setMake} onSubmit={onSubmit}/>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -36,6 +41,15 @@ function ResultsScreen({ route }) {
       <SearchResults initialMake={initialMake}/>
     </View>
   );
+}
+
+function LogoTitle(){
+  return(
+    <Image
+      style={{width: 140, height: 25}}
+      source={require('./assets/logo.png')}
+    />
+  )
 }
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +66,8 @@ function App() {
           headerTintColor: WHITE,
           headerTitleStyle: {
             fontWeight: 'bold',
-          }, 
+          },
+          headerTitle: (props) => <LogoTitle {...props}/>
         }}
       >
         <Stack.Screen 
@@ -81,10 +96,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: WHITE
   },
   results:{ 
     flex: 1, 
     alignItems: 'center', 
     justifyContent: 'center', 
+  },
+  image:{
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%'
+  },
+  main: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

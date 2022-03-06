@@ -31,7 +31,7 @@ const Search = ({ make, setMake }) => {
       maxHeight={300}
       labelField="Make_Name"
       valueField="Make_Name"
-      placeholder="Choose a make"
+      placeholder="Exp: Honda"
       searchPlaceholder="Search..."
       value={make}
       onChange={item => {

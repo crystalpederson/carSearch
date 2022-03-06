@@ -14,7 +14,7 @@ import Search from './Search';
 
 export default function SearchResults({initialMake}) {
   const [cars, setCars] = useState([]);
-  const [make, setMake] = useState(initialMake);
+  const [make, setMake] = useState(initialMake || 'Honda');
   const [type, setType] = useState('')
   const [year, setYear] = useState([])
   const [errorMessage, setErrorMessage] = useState(null);
@@ -102,12 +102,10 @@ export default function SearchResults({initialMake}) {
         <SafeAreaView style={styles.safe}>
           <Search make={make} setMake={setMake}/>
           <FilterBar year={year} make={make} type={type} setType={setType} setIsVisible={setIsVisible}/>
-          <Text>{cars.length} results: </Text>
-      <CarContainer cars={cars}/>
-      <BottomSheet isVisible={isVisible}>
-          <YearSlider year={year} setYear={setYear} setIsVisible={setIsVisible}/>
-      </BottomSheet>
-
+          <CarContainer cars={cars}/>
+          <BottomSheet isVisible={isVisible}>
+            <YearSlider year={year} setYear={setYear} setIsVisible={setIsVisible}/>
+          </BottomSheet>
         </SafeAreaView>
       </View>        
     )
