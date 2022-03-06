@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Image, ImageBackground } from 'react-native';
+import { View, StyleSheet, Image, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from './utils/index';
 
-const { PRIMARY_COLOR, SECONDARY_COLOR, WHITE } = colors;
+const { PRIMARY_COLOR, WHITE } = colors;
 
 import Home from './components/HomeScreen';
 import SearchResults from './components/SearchResults';
-import Search from './components/Search';
 
 function HomeScreen({ navigation }) {
   const [make, setMake] = useState('')
@@ -35,7 +34,6 @@ function HomeScreen({ navigation }) {
 
 function ResultsScreen({ route }) {
   const { initialMake } = route.params;
-
   return (
     <View style={styles.results}>
       <SearchResults initialMake={initialMake}/>
@@ -101,7 +99,7 @@ const styles = StyleSheet.create({
   results:{ 
     flex: 1, 
     alignItems: 'center', 
-    justifyContent: 'center', 
+    justifyContent: 'center',
   },
   image:{
     flex: 1,
