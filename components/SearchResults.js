@@ -48,7 +48,11 @@ export default function SearchResults({initialMake}) {
         url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${currYear}/vehicleType/${type}?format=json`
         try {
           const response = await axios.get(url);
-          carsArray = carsArray.concat(response.data.Results);
+          const responseData = response.data.Results
+          responseData.forEach((el) => {
+            el['Model_Year'] = currYear
+          })
+          carsArray = carsArray.concat(responseData);
           setCars(carsArray)
         } catch (error) {
           console.error(error);
@@ -65,7 +69,11 @@ export default function SearchResults({initialMake}) {
         url = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformakeyear/make/${make}/modelyear/${currYear}?format=json`
         try {
           const response = await axios.get(url);
-          carsArray = carsArray.concat(response.data.Results);
+          const responseData = response.data.Results
+          responseData.forEach((el) => {
+            el['Model_Year'] = currYear
+          })
+          carsArray = carsArray.concat(responseData);
           setCars(carsArray)
         } catch (error) {
           console.error(error);
