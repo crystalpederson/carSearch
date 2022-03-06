@@ -1,19 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native'
+import { Button } from 'react-native-elements'
 import { colors } from '../utils/index'
 
 import TypePicker from './TypePicker';
-import YearSlider from './YearSlider'
 
-const { BORDER_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
 
-const FilterBar = ({ make, type, setType, year, setYear }) => {
+const FilterBar = ({ year, type, setType, setIsVisible }) => {
+
+    let buttonText = 'Any Year'
+    if(year.length === 1) buttonText = year[0];
+    else if(year.length > 1) buttonText = `${year[0]} - ${year[year.length-1]}`
     
     return(
         <View style={styles.container} >
-            <Text style={styles.filterItem}>{make}</Text>
             <TypePicker type={type} setType={setType}/>
-            <Text style={styles.filterItem}>Year</Text>
+            <Button
+                buttonStyle={styles.button} 
+                title={buttonText}
+                onPress={() => setIsVisible(true)}
+                titleStyle={styles.text}
+            />
         </View>
     )
 }
@@ -21,14 +29,26 @@ const FilterBar = ({ make, type, setType, year, setYear }) => {
 const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
-        borderColor: BORDER_COLOR,
+        borderColor: WHITE,
+        borderBottomColor: BORDER_COLOR,
         margin: 2,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'center',
+        paddingBottom: 5
     },
-    filterItem: {
+    button: {
+        margin: 5,
+        height: 40,
+        width: 140,
+        borderRadius: 22,
+        paddingHorizontal: 8,
         borderWidth: 1,
-        borderColor: BORDER_COLOR,
-        margin: 5
+        borderColor: PRIMARY_COLOR,
+        backgroundColor: WHITE
+    },
+    text:{
+      color: PRIMARY_COLOR,
+      fontSize: 16
     }
 });
   

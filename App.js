@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator } from 'react-native';
+import { BottomSheet } from 'react-native-elements'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { colors } from './utils/index'
@@ -10,6 +11,7 @@ import CarContainer from './components/CarContainer';
 import SearchBar from './components/SearchBar';
 import FilterBar from './components/FilterBar';
 import YearSlider from './components/YearSlider';
+import Search from './components/Search';
 
 export default function App() {
   const [cars, setCars] = useState([]);
@@ -17,9 +19,14 @@ export default function App() {
   const [type, setType] = useState('')
   const [year, setYear] = useState([])
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  let isMounted;
 
   useEffect(() => {
+    isMounted = true;
     getCars()
+    return () => { isMounted = false };
   }, [make, type, year])
 
   const carMakeUrl = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${make}?format=json`
@@ -33,7 +40,6 @@ export default function App() {
   }
 
   async function getCars() {
-    setCars(null)
     setErrorMessage(null)
     if(year.length && type){
       console.log(`Query make=${make}, years=${year}, type=${type}`)
@@ -73,7 +79,7 @@ export default function App() {
         console.log(`Query make=${make}, years=any, type=any`)
         const response = await axios.get(url);
         const carsArray = response.data.Results;
-        setCars(carsArray)
+        if(isMounted) setCars(carsArray); 
       } catch (error) {
         console.error(error);
         setErrorMessage('No cars found')
@@ -87,12 +93,14 @@ export default function App() {
       <View style={styles.listContainer}>
         <StatusBar style="auto" />
         <SafeAreaView style={styles.safe}>
-          <Text>Search for a car!</Text>
+          <Search make={make} setMake={setMake}/>
+          <FilterBar year={year} make={make} type={type} setType={setType} setIsVisible={setIsVisible}/>
           <Text>{cars.length} results: </Text>
-          <SearchBar setMake={setMake} getCars={getCars}/>
-          <FilterBar make={make} type={type} setType={setType} year={year} setYear={setYear}/>
-          <YearSlider year={year} setYear={setYear}/>
-          <CarContainer cars={cars}/>
+      <CarContainer cars={cars}/>
+      <BottomSheet isVisible={isVisible}>
+          <YearSlider year={year} setYear={setYear} setIsVisible={setIsVisible}/>
+      </BottomSheet>
+
         </SafeAreaView>
       </View>        
     )
@@ -133,5 +141,5 @@ const styles = StyleSheet.create({
   safe:{
     width: '100%',
     flex: 1
-  }
+  },
 });

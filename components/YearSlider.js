@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import RangeSlider from 'rn-range-slider';
+import { Button } from 'react-native-elements'
 
 import Thumb from './slider/Thumb';
 import Rail from './slider/Rail';
@@ -10,9 +11,9 @@ import Notch from './slider/Notch';
 
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR, PRIMARY_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
 
-const YearSlider = ( { year, setYear }) => {
+const YearSlider = ( { year, setYear, setIsVisible }) => {
 
     const firstYear = year[0] || 2010;
     const lastYear = year[year.length - 1] || 2022
@@ -40,7 +41,8 @@ const YearSlider = ( { year, setYear }) => {
     }, []);
 
     return(
-        <View>
+        <View style={styles.container}>
+            <Text>Select model year:</Text>
             <RangeSlider
             style={styles.slider}
             min={2010}
@@ -59,6 +61,18 @@ const YearSlider = ( { year, setYear }) => {
             />
             <Text>{min}</Text>
             <Text>{max}</Text>
+            <Button 
+              onPress={() => setYear([])} 
+              buttonStyle={styles.button} 
+              title='Clear' 
+              titleStyle={styles.buttonText}
+            />
+            <Button 
+              onPress={() => setIsVisible(false)} 
+              buttonStyle={styles.button} 
+              title='Done' 
+              titleStyle={styles.buttonText}
+            />
         </View>
     )
 }
@@ -66,7 +80,22 @@ const YearSlider = ( { year, setYear }) => {
 export default YearSlider;
 
 const styles = StyleSheet.create({
+    container:{
+      backgroundColor: WHITE,
+      padding: 10
+    },
     slider: {
+    },
+    button: {
+        margin: 5,
+        height: 40,
+        width: 110,
+        backgroundColor: '#EEEEEE',
+        borderRadius: 22,
+        paddingHorizontal: 8,
+    },
+    buttonText: {
+      color: PRIMARY_COLOR
     }
 })
 

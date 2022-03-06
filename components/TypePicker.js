@@ -3,20 +3,20 @@ import { View, Text, StyleSheet } from 'react-native'
 import { SelectCountry } from 'react-native-element-dropdown';
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR, PRIMARY_COLOR } = colors; 
+const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
 
 const car_types = [
     {
       value: 'Car',
-      lable: 'Car',
+      lable: 'Cars',
     },
     {
       value: 'Truck',
-      lable: 'Truck'
+      lable: 'Trucks'
     },
     {
       value: 'MPV',
-      lable: 'MPV'
+      lable: 'MPVs'
     },
     {
       value: '',
@@ -39,6 +39,8 @@ const TypePicker = ({type, setType}) => {
         valueField="value"
         labelField="lable"
         placeholder="Vehicle Type"
+        placeholderStyle={styles.text}
+        activeColor={BORDER_COLOR}
         onChange={e => {
           setType(e.value);
         }}
@@ -53,10 +55,12 @@ const styles = StyleSheet.create({
     dropdown: {
       margin: 5,
       height: 40,
-      width: 110,
-      backgroundColor: '#EEEEEE',
+      width: 140,
       borderRadius: 22,
       paddingHorizontal: 8,
+      borderWidth: 1,
+      borderColor: PRIMARY_COLOR,
+      backgroundColor: WHITE
     },
 
     placeholderStyle: {
@@ -65,12 +69,12 @@ const styles = StyleSheet.create({
     selectedTextStyle: {
       fontSize: 16,
       marginLeft: 8,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
+      color: PRIMARY_COLOR
     },
     containerStyle: {
       marginLeft: 0
     },
+    text:{
+      color: PRIMARY_COLOR
+    }
   });
