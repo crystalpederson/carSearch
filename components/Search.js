@@ -1,85 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
+import axios from 'axios';
 
-const data = [
-    { label: 'Honda', value: 'Honda' },
-    { label: 'Toyota', value: 'Toyota' },
-    { label: 'Tesla', value: 'Tesla' },
-    { label: 'Subaru', value: 'Subaru' },
-    { label: 'Hyundai', value: 'Hyundai' },
-    { label: 'Porsche', value: 'Porsche' },
-    { label: 'Mercedes', value: 'Mercedes' },
-  ];
+const Search = ({ make, setMake }) => {
+  const [allMakes, setAllMakes] = useState([])
 
-  const Search = ({make, setMake}) => {
-    const [value, setValue] = useState(null);
+  useEffect(() => {
+    getMakes();
+  }, [])
 
-    return (
-      <Dropdown
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        data={data}
-        search
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder="Choose a make"
-        searchPlaceholder="Search..."
-        value={make}
-        onChange={item => {
-          setMake(item.value);
-        }}
-      />
-    );
-  };
+  async function getMakes() {
+    try {
+      const response = await axios.get('https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json');
+      const makesArray = response.data.Results;
+      setAllMakes(makesArray)
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  export default Search;
+  return (
+    <Dropdown
+      style={styles.dropdown}
+      placeholderStyle={styles.placeholderStyle}
+      selectedTextStyle={styles.selectedTextStyle}
+      inputSearchStyle={styles.inputSearchStyle}
+      data={allMakes}
+      search
+      maxHeight={300}
+      labelField="Make_Name"
+      valueField="Make_Name"
+      placeholder="Choose a make"
+      searchPlaceholder="Search..."
+      value={make}
+      onChange={item => {
+        setMake(item.Make_Name);
+      }}
+    />
+  );
+};
 
-  const styles = StyleSheet.create({
-    dropdown: {
-      margin: 10,
-      height: 50,
-      backgroundColor: 'white',
-      borderRadius: 12,
-      padding: 12,
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.2,
-      shadowRadius: 1.41,
+export default Search;
 
-      elevation: 2,
+const styles = StyleSheet.create({
+  dropdown: {
+    minWidth: 250,
+    margin: 10,
+    height: 50,
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
     },
-    icon: {
-      marginRight: 5,
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
     },
-    item: {
-      padding: 17,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    textItem: {
-      flex: 1,
-      fontSize: 16,
-    },
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
-    },
-  });
+  icon: {
+    marginRight: 5,
+  },
+  item: {
+    padding: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
+});

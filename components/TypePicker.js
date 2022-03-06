@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, StyleSheet } from 'react-native'
 import { SelectCountry } from 'react-native-element-dropdown';
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
+const { PRIMARY_COLOR, SECONDARY_COLOR, WHITE } = colors; 
 
 const car_types = [
     {
@@ -40,7 +40,7 @@ const TypePicker = ({type, setType}) => {
         labelField="lable"
         placeholder="Vehicle Type"
         placeholderStyle={styles.text}
-        activeColor={BORDER_COLOR}
+        activeColor={SECONDARY_COLOR}
         onChange={e => {
           setType(e.value);
         }}

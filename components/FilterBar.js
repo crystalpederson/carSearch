@@ -5,7 +5,7 @@ import { colors } from '../utils/index'
 
 import TypePicker from './TypePicker';
 
-const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
+const { PRIMARY_COLOR, SECONDARY_COLOR, WHITE } = colors; 
 
 const FilterBar = ({ year, type, setType, setIsVisible }) => {
 
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     container: {
         borderWidth: 1,
         borderColor: WHITE,
-        borderBottomColor: BORDER_COLOR,
+        borderBottomColor: SECONDARY_COLOR,
         margin: 2,
         flexDirection: 'row',
         justifyContent: 'center',

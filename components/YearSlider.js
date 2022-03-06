@@ -11,7 +11,7 @@ import Notch from './slider/Notch';
 
 import { colors } from '../utils/index'
 
-const { BORDER_COLOR, PRIMARY_COLOR, WHITE } = colors; 
+const { PRIMARY_COLOR, WHITE } = colors; 
 
 const YearSlider = ( { year, setYear, setIsVisible }) => {
 
