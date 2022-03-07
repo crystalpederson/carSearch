@@ -18,8 +18,9 @@ Try out the app on [Expo Snack](https://snack.expo.dev/@crystalpederson/crystal-
 $ npm install --global expo-cli
 ```
 
-3. Run `npm start` to start the server.
-4. Press `i` to open the iOS Simulator or `a` to open Android.
+3. Install dependencies with `npm install`
+4. Run `npm start` to start the server.
+5. Press `i` to open the iOS Simulator or `a` to open Android.
 
 ## Using The App
 
