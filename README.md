@@ -25,6 +25,7 @@ $ npm install --global expo-cli
 
 ### Home Page
 * Select a car make from the dropdown menu.  You can type into the search bar to find a particular make or scroll through the dropdown list to find a make.
+
 * Press the "Search" button to see the resulting list of cars.
 
 ### Results Page
